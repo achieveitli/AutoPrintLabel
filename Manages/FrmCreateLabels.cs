@@ -171,7 +171,6 @@ namespace Manages
                             //计算内盒数量
                             boxCount = 0;
                             double box = Double.Parse(saPacks.fSQty.ToString()) * 1000;
-                            //double b = order%box;
                             if (createQty % box != 0)
                             {
                                 boxCount = (int)(createQty / box) + 1;

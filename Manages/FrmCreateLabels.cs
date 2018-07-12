@@ -58,7 +58,7 @@ namespace Manages
                 t_opencardpack newOpencardpack = openCardPackBll.FindOpencardpackByCode(parmOpencardpack);
                 if (newOpencardpack != null)
                 {
-                    if (newOpencardpack.Flabelqty==null)
+                    if (newOpencardpack.Flabelqty == null)
                     {
                         MessageBox.Show(@"生成数量为空，请返回开卡包装规格设置！", messageHead, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
@@ -152,7 +152,7 @@ namespace Manages
                         if (!this.cb_pack.Checked)
                         {
                             //计算卷盘数量
-                           
+
                             double reel = Double.Parse(saPacks.FPKminqty.ToString()) * 1000;
                             // double a=order%reel;
                             if (createQty % reel != 0)
@@ -162,7 +162,7 @@ namespace Manages
                             else
                             {
                                 reelCount = (int)(createQty / reel);
-                            }  
+                            }
                         }
                         this.txtReel.Text = reelCount.ToString();
                         int boxCount = 0;
@@ -249,92 +249,99 @@ namespace Manages
             //    this.txtOrderQty.Focus();
             //    return;
             //}
-            int createqty = int.Parse(this.txtCreateQTY.Text.Trim());
-            //订单数量控制
-            Boolean verify = frmCreateLabelsBll.VerifyOrderQty(this.txtOrder.Text.Trim(), this.txtTypeCode.Text.Trim(), createqty);
-            if (!verify)
-            {
-                MessageBox.Show(@"超出订单数量！", messageHead, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            int labelTemplateId = 0;
-            FrmSelectTemplate frmSelectTemplate = FrmSelectTemplate.GetSingle(
-                delegate()
-                {
-                    string[] tpv = new[] { "T4003", "T4011", "T4017", "T4021", "T4022", "T4027", "T4008", "T4012", "T4016", "T4023" };
-                    if (tpv.Contains(this.txtClientCode.Text.Trim()))
-                    {
-                        return "TPV";
-                    }
-                    return this.txtClientCode.Text.Trim();
-                },
-                delegate(int id)
-                {
-                    labelTemplateId = id;
-                }
-            );
-            frmSelectTemplate.ShowDialog();
-            //MessageBox.Show(@"别瞎点了，此功能没开发呢！", messageHead, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            if (labelTemplateId != 0)
-            {
-                t_labels label = new t_labels();
-                label.clientCode = this.txtClientCode.Text.Trim();
-                if (string.IsNullOrEmpty(this.txtBatchSuffix.Text))
-                {
-                    label.batchNo = this.txtBatch.Text.Trim();
-                }
-                else
-                {
-                    label.batchNo = this.txtBatch.Text.Trim() + this.txtBatchSuffix.Text;
-                }
-                label.code = this.txtKey.Text.Trim();
-                //日期这里要优化一下，拿客户端时间有风险   2018-7-12已经处理
-                //label.createDate = DateTime.Now.ToString();
-                if (string.IsNullOrEmpty(this.txtFlowCardSuffix.Text))
-                {
-                    label.flowCard = this.txtFlowCard.Text.Trim();
-                }
-                else
-                {
-                    label.flowCard = this.txtFlowCard.Text.Trim() + "  " + this.txtFlowCardSuffix.Text;
-                }
-                label.labelTemplateAddressId = labelTemplateId;
-                label.orderCode = this.txtOrder.Text.Trim();
-                label.package = this.txtZhuShen.Text.Trim();
-                label.pn = this.txtPN.Text.Trim();
-                label.po = this.txtPO.Text.Trim();
-                label.shipmentDate = this.txtDpredate.Text.Trim();
-                label.type = this.txtCinvstd.Text.Trim();
-                label.remark = this.txtNote.Text.Trim();
-                label.typeCode = this.txtTypeCode.Text.Trim();
-                //int labelQty = Int32.Parse(this.txtBox.Text) + Int32.Parse(this.txtReel.Text);
-                int orderQty = int.Parse(this.txtOrderQty.Text.Trim());// 订单数量
-                int boxQTY = int.Parse(this.txtBoxQTY.Text.Trim());    //内盒数量
-                int reelQTY = int.Parse(this.txtReelQTY.Text.Trim());//卷盘数量
-                int box = int.Parse(this.txtBox.Text.Trim());  //内盒个数
-                int reel = int.Parse(this.txtReel.Text.Trim()); //卷盘个数
-                //Label_template labeltempalte = frmCreateLabelsBll.FindLabelTemplateById(labelTemplateId);
-                int result = frmCreateLabelsBll.InsertLabel(label, orderQty, boxQTY, reelQTY, box, reel, this.cb_pack.Checked);
-                if (result > 0)
-                {
-                    MessageBox.Show(@"生成成功！", messageHead, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    string messages = null;
-                    //打印标签
-                    //PrintLabels(this.txtKey.Text.Trim(), ref  messages);
-                    //SelectLabels();
-                    ClearGroupBoxText();
-                    this.btnCreate.Enabled = false;
-                }
-                else
-                {
-                    MessageBox.Show(@"生成失败！", messageHead, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    //SelectLabels();
-                    ClearGroupBoxText();
-                    this.btnCreate.Enabled = false;
-                }
-            }
+
+            //int createqty = int.Parse(this.txtCreateQTY.Text.Trim());
+            ////订单数量控制
+            //Boolean verify = frmCreateLabelsBll.VerifyOrderQty(this.txtOrder.Text.Trim(), this.txtTypeCode.Text.Trim(), createqty);
+            //if (!verify)
+            //{
+            //    MessageBox.Show(@"超出订单数量！", messageHead, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    return;
+            //}
+            //int labelTemplateId = 0;
+            //FrmSelectTemplate frmSelectTemplate = FrmSelectTemplate.GetSingle(
+            //    delegate()
+            //    {
+            //        string[] tpv = new[] { "T4003", "T4011", "T4017", "T4021", "T4022", "T4027", "T4008", "T4012", "T4016", "T4023" };
+            //        if (tpv.Contains(this.txtClientCode.Text.Trim()))
+            //        {
+            //            return "TPV";
+            //        }
+            //        return this.txtClientCode.Text.Trim();
+            //    },
+            //    delegate(int id)
+            //    {
+            //        labelTemplateId = id;
+            //    }
+            //);
+            //frmSelectTemplate.ShowDialog();
+            ////MessageBox.Show(@"别瞎点了，此功能没开发呢！", messageHead, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //if (labelTemplateId != 0)
+            //{
+            //    t_labels label = new t_labels();
+            //    label.clientCode = this.txtClientCode.Text.Trim();
+            //    if (string.IsNullOrEmpty(this.txtBatchSuffix.Text))
+            //    {
+            //        label.batchNo = this.txtBatch.Text.Trim();
+            //    }
+            //    else
+            //    {
+            //        label.batchNo = this.txtBatch.Text.Trim() + this.txtBatchSuffix.Text;
+            //    }
+            //    label.code = this.txtKey.Text.Trim();
+            //    //日期这里要优化一下，拿客户端时间有风险   2018-7-12已经处理
+            //    //label.createDate = DateTime.Now.ToString();
+            //    if (string.IsNullOrEmpty(this.txtFlowCardSuffix.Text))
+            //    {
+            //        label.flowCard = this.txtFlowCard.Text.Trim();
+            //    }
+            //    else
+            //    {
+            //        label.flowCard = this.txtFlowCard.Text.Trim() + "  " + this.txtFlowCardSuffix.Text;
+            //    }
+            //    label.labelTemplateAddressId = labelTemplateId;
+            //    label.orderCode = this.txtOrder.Text.Trim();
+            //    label.package = this.txtZhuShen.Text.Trim();
+            //    label.pn = this.txtPN.Text.Trim();
+            //    label.po = this.txtPO.Text.Trim();
+            //    label.shipmentDate = this.txtDpredate.Text.Trim();
+            //    label.type = this.txtCinvstd.Text.Trim();
+            //    label.remark = this.txtNote.Text.Trim();
+            //    label.typeCode = this.txtTypeCode.Text.Trim();
+            //    //int labelQty = Int32.Parse(this.txtBox.Text) + Int32.Parse(this.txtReel.Text);
+            //    int orderQty = int.Parse(this.txtOrderQty.Text.Trim());// 订单数量
+            //    int boxQTY = int.Parse(this.txtBoxQTY.Text.Trim());    //内盒数量
+            //    int reelQTY = int.Parse(this.txtReelQTY.Text.Trim());//卷盘数量
+            //    int box = int.Parse(this.txtBox.Text.Trim());  //内盒个数
+            //    int reel = int.Parse(this.txtReel.Text.Trim()); //卷盘个数
+            //    //Label_template labeltempalte = frmCreateLabelsBll.FindLabelTemplateById(labelTemplateId);
+            //    int result = frmCreateLabelsBll.InsertLabel(label, orderQty, boxQTY, reelQTY, box, reel, this.cb_pack.Checked);
+            //    if (result > 0)
+            //    {
+            //        MessageBox.Show(@"生成成功！", messageHead, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //        string messages = null;
+            //        //打印标签
+            //        //PrintLabels(this.txtKey.Text.Trim(), ref  messages);
+            //        //SelectLabels();
+            //        ClearGroupBoxText();
+            //        this.btnCreate.Enabled = false;
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show(@"生成失败！", messageHead, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //        //SelectLabels();
+            //        ClearGroupBoxText();
+            //        this.btnCreate.Enabled = false;
+            //    }
+            //}
+            CreateLabelOrPrint(false);
         }
 
+        /// <summary>
+        /// 右键生成按钮事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ToolStripMenuItem_Create_Click(object sender, EventArgs e)
         {
             btnCreate_Click(sender, e);
@@ -350,23 +357,34 @@ namespace Manages
         //    this.dgvLabels.DataSource = frmCreateLabelsBll.FindLabelsesByCod(this.txtKey.Text.Trim());
         //}
 
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="sender"></param>
+       /// <param name="e"></param>
         private void cb_pack_CheckedChanged(object sender, EventArgs e)
         {
             if (sender is CheckBox)
             {
-                CheckBox checkBox = (CheckBox) sender;
+                CheckBox checkBox = (CheckBox)sender;
                 if (checkBox.Checked)
                 {
                     this.cb_reel.Checked = false;
-                } 
+                }
             }
             ClearGroupBoxText();
             this.btnCreate.Enabled = false;
             this.ToolStripMenuItem_Create.Enabled = false;
         }
+
         public int PrintLabels(string code, ref string message)
         {
             return printLabelsBll.PrintLabel(code, ref message);
+        }
+
+        public int PrintLabels(t_labels label, int printcount, int[] ids, ref string message)
+        {
+            return printLabelsBll.PrintLabel(label, printcount, ids, ref message);
         }
 
         /// <summary>
@@ -432,16 +450,113 @@ namespace Manages
         //    this.txtBox.Text = boxCount.ToString();
         //}
 
+        /// <summary>
+        /// 生成并打印按钮事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCreateAndPrint_Click(object sender, EventArgs e)
         {
-            btnCreate_Click(sender, e);
-            string messages = null;
-            //打印标签
-            PrintLabels(this.txtKey.Text.Trim(), ref  messages);
-            ClearGroupBoxText();
-            this.btnCreate.Enabled = false;
-            this.btnCreateAndPrint.Enabled = false;
+            CreateLabelOrPrint(true);
         }
+
+
+        /// <summary>
+        /// 生成或打印
+        /// </summary>
+        /// <param name="createAndPrint">Boolean true 生成并打印   false 生成</param>
+        public void CreateLabelOrPrint(Boolean createAndPrint)
+        {
+            int createqty = int.Parse(this.txtCreateQTY.Text.Trim());
+            //订单数量控制
+            Boolean verify = frmCreateLabelsBll.VerifyOrderQty(this.txtOrder.Text.Trim(), this.txtTypeCode.Text.Trim(), createqty);
+            if (!verify)
+            {
+                MessageBox.Show(@"超出订单数量！", messageHead, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            int labelTemplateId = 0;
+            FrmSelectTemplate frmSelectTemplate = FrmSelectTemplate.GetSingle(
+                delegate()
+                {
+                    string[] tpv = new[] { "T4003", "T4011", "T4017", "T4021", "T4022", "T4027", "T4008", "T4012", "T4016", "T4023" };
+                    if (tpv.Contains(this.txtClientCode.Text.Trim()))
+                    {
+                        return "TPV";
+                    }
+                    return this.txtClientCode.Text.Trim();
+                },
+                delegate(int id)
+                {
+                    labelTemplateId = id;
+                }
+            );
+            frmSelectTemplate.ShowDialog();
+            //MessageBox.Show(@"别瞎点了，此功能没开发呢！", messageHead, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (labelTemplateId != 0)
+            {
+                t_labels label = new t_labels();
+                label.clientCode = this.txtClientCode.Text.Trim();
+                if (string.IsNullOrEmpty(this.txtBatchSuffix.Text))
+                {
+                    label.batchNo = this.txtBatch.Text.Trim();
+                }
+                else
+                {
+                    label.batchNo = this.txtBatch.Text.Trim() + this.txtBatchSuffix.Text;
+                }
+                label.code = this.txtKey.Text.Trim();
+                //日期这里要优化一下，拿客户端时间有风险   2018-7-12已经处理
+                //label.createDate = DateTime.Now.ToString();
+                if (string.IsNullOrEmpty(this.txtFlowCardSuffix.Text))
+                {
+                    label.flowCard = this.txtFlowCard.Text.Trim();
+                }
+                else
+                {
+                    label.flowCard = this.txtFlowCard.Text.Trim() + "  " + this.txtFlowCardSuffix.Text;
+                }
+                label.labelTemplateAddressId = labelTemplateId;
+                label.orderCode = this.txtOrder.Text.Trim();
+                label.package = this.txtZhuShen.Text.Trim();
+                label.pn = this.txtPN.Text.Trim();
+                label.po = this.txtPO.Text.Trim();
+                label.shipmentDate = this.txtDpredate.Text.Trim();
+                label.type = this.txtCinvstd.Text.Trim();
+                label.remark = this.txtNote.Text.Trim();
+                label.typeCode = this.txtTypeCode.Text.Trim();
+                //int labelQty = Int32.Parse(this.txtBox.Text) + Int32.Parse(this.txtReel.Text);
+                int orderQty = int.Parse(this.txtOrderQty.Text.Trim());// 订单数量
+                int boxQTY = int.Parse(this.txtBoxQTY.Text.Trim());    //内盒数量
+                int reelQTY = int.Parse(this.txtReelQTY.Text.Trim());//卷盘数量
+                int box = int.Parse(this.txtBox.Text.Trim());  //内盒个数
+                int reel = int.Parse(this.txtReel.Text.Trim()); //卷盘个数
+                //Label_template labeltempalte = frmCreateLabelsBll.FindLabelTemplateById(labelTemplateId);
+                string messages = null;
+                int result = frmCreateLabelsBll.InsertLabel(label, orderQty, boxQTY, reelQTY, box, reel, this.cb_pack.Checked);
+                if (result > 0)
+                {
+                    //MessageBox.Show(@"生成成功！", messageHead, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    
+                    if (createAndPrint)
+                    {
+                        int printResult = printLabelsBll.PrintLabel(label, 1, null, ref messages);
+                        if (printResult<0)
+                        {
+                            MessageBox.Show(@"打印失败！" + messages, messageHead, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(@"生成失败！", messageHead, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                ClearGroupBoxText();
+                this.btnCreate.Enabled = false;
+                this.btnCreateAndPrint.Enabled = false;
+            }
+        }
+
 
     }
 }

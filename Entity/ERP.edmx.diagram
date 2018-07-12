@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4a856d0953b744e49aa8d1a50a78720a" Name="Diagram1" ZoomLevel="15">
+        <EntityTypeShape EntityType="ERP2008Model.b_Inventory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP2008Model.b_User" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="ERP2008Model.t_opencard" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP2008Model.t_opencardpack" Width="1.875" PointX="11.375" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP2008Model.t_opencardpack_sf" Width="1.75" PointX="31.125" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP2008Model.v_DispatchList" Width="1.5" PointX="28.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERP2008Model.SO_SODetails" Width="1.5" PointX="5.625" PointY="12.125" />
+        <EntityTypeShape EntityType="ERP2008Model.SO_SOMain" Width="1.5" PointX="3.375" PointY="18.875" />
+        <AssociationConnector Association="ERP2008Model.FK_SO_SODetails_SO_SOMain" />
+        <EntityTypeShape EntityType="ERP2008Model.SA_Packs" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ERP2008Model.Label_template" Width="1.5" PointX="7.375" PointY="6.75" />
+        <EntityTypeShape EntityType="ERP2008Model.t_StAndClient_compaTable" Width="1.5" PointX="14.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ERP2008Model.t_labels" Width="1.5" PointX="8.375" PointY="10.75" />
+        <EntityTypeShape EntityType="ERP2008Model.T_Label_UID" Width="1.5" PointX="9.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

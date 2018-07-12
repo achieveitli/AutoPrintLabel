@@ -358,7 +358,7 @@ namespace Manages
         //}
 
        /// <summary>
-       /// 
+       /// 控制生成或不生成内盒、卷盘
        /// </summary>
        /// <param name="sender"></param>
        /// <param name="e"></param>

@@ -15,5 +15,6 @@ namespace Bll
          int PrintLabel(List<t_labels> labels, ref string message);
 
          int PrintLabel(string code, ref string message);
+         int PrintLabel(t_labels labels, int message, object o, ref string s);
     }
 }

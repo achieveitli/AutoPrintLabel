@@ -358,7 +358,7 @@ namespace Manages
         //}
 
        /// <summary>
-       /// 控制生成或不生成内盒、卷盘
+       /// 控制生成或不生成内盒
        /// </summary>
        /// <param name="sender"></param>
        /// <param name="e"></param>
@@ -376,6 +376,27 @@ namespace Manages
             this.btnCreate.Enabled = false;
             this.ToolStripMenuItem_Create.Enabled = false;
         }
+
+        /// <summary>
+        /// 控制生成或不生成内盒
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cb_reel_CheckedChanged(object sender, EventArgs e)
+        {
+            if (sender is CheckBox)
+            {
+                CheckBox checkBox = (CheckBox)sender;
+                if (checkBox.Checked)
+                {
+                    this.cb_pack.Checked = false;
+                }
+            }
+            ClearGroupBoxText();
+            this.btnCreate.Enabled = false;
+            this.ToolStripMenuItem_Create.Enabled = false;
+        }
+
 
         public int PrintLabels(string code, ref string message)
         {
@@ -396,20 +417,8 @@ namespace Manages
         {
             return string.IsNullOrEmpty(atrr) ? "" : atrr.Trim();
         }
-        private void cb_reel_CheckedChanged(object sender, EventArgs e)
-        {
-            if (sender is CheckBox)
-            {
-                CheckBox checkBox = (CheckBox)sender;
-                if (checkBox.Checked)
-                {
-                    this.cb_pack.Checked = false;
-                }
-            }
-            ClearGroupBoxText();
-            this.btnCreate.Enabled = false;
-            this.ToolStripMenuItem_Create.Enabled = false;
-        }
+
+        
 
         //订单数量值改变就计算标签生成个数
         //private void txtOrderQty_Leave(object sender, EventArgs e)
